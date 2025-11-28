@@ -1,0 +1,22 @@
+## ADS_HW1 Project Architecture
+
+### Repository Overview
+- `ADS_HW1/` (repo root): homework workspace. Contains notebooks, data assets, and supporting scripts.
+- `.cursor/rules/`: rule documents that guide each task (`task_description.mdc`, `task_dataset_guideline.mdc`, `project_rules.mdc`). `architecture.mdc` (this file) records structure and should be updated when layout evolves.
+
+### Data & Analysis Assets
+- `data/`: raw and processed datasets that power the coursework.
+  - `telco_customer_churn.csv`: Kaggle/IBM Telco Customer Churn table used across the HW1 notebook.
+- `notebooks/`: narrative analysis artifacts.
+  - `ads_hw1_analysis.ipynb`: main notebook implementing cleaning, visualization (pie/box/line/stacked/etc.), feature engineering, MI ranking, PCA, and reflections per the brief.
+- `reports/`: optional exports (currently empty) for any rendered deliverables, screenshots, or summaries.
+
+### Code Modules
+- `scripts/`: reserved for reusable helpers (data loaders, plotting utilities, feature engineering pipelines). Keeps notebooks focused on narrative while logic remains testable; presently empty but scaffolded for future steps.
+- `bama_samand_scraper.py`: placeholder for the bonus Samand scraper. When implemented, it should fetch listings, emit structured data (likely to `data/samand_listings.xlsx`), and respect site policies.
+
+### Environment & Tooling
+- `.venv/` *(managed via `uv`)*: Python virtual environment for all dependencies (pandas, numpy, scikit-learn, plotly, etc.). Dependencies mirrored in `requirements.txt` and kept in sync with `uv pip sync`.
+- `requirements.txt`: single source of dependency truth. Any new library introduced in notebooks/scripts must be declared here before syncing.
+
+Update this document whenever directories/files above are added or their responsibilities change.
