@@ -1,0 +1,60 @@
+---
+alwaysApply: true
+---
+
+
+# Data Analysis & Engineering Project
+
+## 1. Exploratory Analysis and Data Cleaning
+On the dataset of your choice, perform:
+* **Comprehensive Exploratory Data Analysis (EDA)** with meaningful insights.
+* **Data cleaning:** Handling missing, invalid, or duplicate values.
+* **Preprocessing:** Converting all features to numerical values.
+* **Normalization or standardization.**
+* Clear explanations and overall notebook readability.
+
+---
+
+## 2. Data Visualization
+* Practice different visualization techniques using your dataset.
+* Choose appropriate plot types based on your analysis goals.
+* **Include:**
+    * Pie charts and box plots
+    * Line charts and multi-line charts
+    * Bar charts, grouped and stacked bar charts
+    * Scatter plots and bubble charts
+    * Charts showing uncertainty (error bars)
+    * Interactive charts using **Plotly** or **Bokeh**
+* **Each chart must have:**
+    * Proper title
+    * Axis labels and ranges
+    * Legends
+
+---
+
+## 3. Feature Engineering
+Using your chosen dataset:
+* **Create new features based on:**
+    * Ratios, binning, mathematical functions, and feature combinations
+    * Date/time transformations
+    * Counts or aggregation statistics
+* Perform feature selection using **Mutual Information**.
+* Apply dimensionality reduction using **PCA**.
+* Provide clear explanations and a readable notebook.
+* **Answer the following reflective question (in English or Persian):**
+    > “When is feature engineering a nice-to-have option, and when is it a must-have?”
+
+---
+
+## 4. Web Scraping (Bonus)
+* Write a simple scraper to extract data for **50 “Samand” cars** manufactured **after 1385** from **bama.ir**.
+* **Extract the following fields:**
+    * Price
+    * Mileage
+    * Color
+    * Production year
+    * Transmission type (manual/automatic)
+    * Description
+* **Submit:**
+    * Your scraper code
+    * The collected data in an Excel (`.xlsx`) file

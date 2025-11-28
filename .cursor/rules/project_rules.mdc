@@ -1,0 +1,21 @@
+---
+alwaysApply: true
+---
+
+# Very Important Rules
+
+## When you create an API service, you must set an timeout not to continue processing a request if a certains time limit has passed (the default can be 30 seconds) 
+
+## Run everything using uv and inside the .venv and for Ubuntu 24.04 LTS.
+
+## Do not do sth that I didn't ask you to do it.
+
+## If you are not sure about your task, ask me to clarify the task for you. 
+
+## All MDC files should be inside .cursor/rules/ directory.
+
+## When you write new code, make sure to add its dependencies inside the requirements.txt and then run "uv pip sync requirements.txt" command.
+
+## Always: First, tell me your plan at first, then, wait for my command to start implementing.
+
+## Always (if it architecture.mdc is not already existed): First, create a architecture.mdc inside .cursor/rules/ directory and explain project structure and functionality of each part of the project. Then, continue with the above task. You should always consider architecture.mdc file and update it. This file helps you understand big projects modules much better and faster.

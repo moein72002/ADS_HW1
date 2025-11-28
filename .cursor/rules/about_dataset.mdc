@@ -1,0 +1,23 @@
+---
+alwaysApply: true
+---
+
+# About Dataset
+
+This dataset extends the classic Telco Customer Churn dataset by adding a column **CustomerFeedback**, generated using GPT-3.5 based on customer features like tenure, contract type, monthly charges, and churn status.
+
+Each row now includes a realistic customer review, enabling:
+
+* Sentiment analysis
+* NLP model training (classification, clustering)
+* End-to-end churn prediction pipelines (ML + NLP)
+
+---
+
+* ✅ **Ideal for projects using:** Python, Spark, Power BI, or LLMs.
+* 📅 **Created:** June 2025
+* 🔁 **Feedbacks generated with OpenAI API** (controlled prompt logic, temperature=0.7)
+
+## Kaggle Reference
+- **Dataset link:** https://www.kaggle.com/datasets/beatafaron/telco-customer-churn-realistic-customer-feedback
+- **Kaggle notebook path:** `/kaggle/input/telco-customer-churn-realistic-customer-feedback`

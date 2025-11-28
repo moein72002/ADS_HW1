@@ -1,0 +1,76 @@
+---
+alwaysApply: true
+---
+
+# Suitable Kaggle Dataset for the Analysis Project
+
+For the given data analysis and engineering tasks, a highly suitable choice from Kaggle's classification datasets is the **Telco Customer Churn dataset** (an IBM sample dataset).
+
+This dataset involves predicting whether customers will churn (leave the service), which is a binary classification problem. It is a relatively small dataset (only about 7,043 customer records) with a manageable number of features, making it ideal for quick processing and comprehensive exploration [1]. Below, we outline the dataset’s characteristics and why it fits the project requirements:
+
+## Telco Customer Churn Dataset Overview
+
+### Dataset Size & Target
+The dataset contains information on **7,043 customers with 21 features each** [1]. The target variable is **“Churn”**, indicating whether each customer left within the last month (Yes/No) [1]. This satisfies the classification aspect of the project, and the moderate size ensures lower processing time as requested.
+
+### Feature Variety
+The data includes a rich mix of categorical and numerical features. For example, it has:
+* **Customer demographics:** Gender, senior citizen status, partner, dependents.
+* **Services:** Phone line, multiple lines, internet services (online security, streaming TV, etc.).
+* **Account/Billing:** Tenure in months, contract type, payment method, monthly charges, total charges [2].
+
+This variety means we can practice extensive EDA – examining distributions of categorical features and statistics of numerical features – and will need to perform preprocessing (e.g., encoding categories to numeric form, handling data types) for analysis.
+
+### Data Cleaning Needs
+The dataset presents realistic data quality issues to address. Notably, there are some missing or invalid values – for instance, a number of customers have blank entries in the `TotalCharges` field (total amount charged), which occurs for new customers with zero tenure [3].
+
+There is also an ID column (`customerID`) that serves as a unique identifier and can be removed as it’s not useful for analysis. These aspects provide an opportunity to apply data cleaning techniques:
+* Handling missing values (e.g., replacing blank `TotalCharges` with 0 or NaN and then imputing or dropping those 11 records [4][3]).
+* Eliminating irrelevant or duplicate records (each customer is unique, so duplicates are not expected in this case).
+
+Overall, the dataset will allow you to demonstrate thorough cleaning and preparation steps.
+
+### Suitable for Comprehensive Visualization
+With its mix of feature types, this dataset supports a wide range of data visualization techniques:
+
+* **Pie charts:** Create these to show the proportion of customers who churned vs. stayed (the class imbalance is around 26% churned vs. 74% not churned) or to visualize categorical breakdowns (e.g., contract types or internet service categories).
+* **Bar charts:** Use grouped or stacked bars to compare counts or percentages across categories – for example, churn vs. not-churn counts across different contract types or payment methods.
+* **Box plots:** Suitable for showing distributions of numerical features like monthly charges or tenure, and how they differ for churned vs. retained customers (e.g., a box plot of tenure for each churn category could reveal churned customers tend to have shorter tenure).
+* **Line charts:** Can be utilized if we introduce an ordering or time element – for instance, plotting the average monthly charges over increasing tenure, or showing trends like the cumulative number of customers retained over tenure months. We could even create a multi-line chart to compare trends between groups (e.g., plotting the number of active vs. churned customers over each tenure month as two lines). While the data isn’t a time-series, the tenure feature (months of service) can act as a pseudo-time axis for such analysis.
+* **Scatter plots (and bubble charts):** Useful to explore relationships between numerical features. For example, a scatter of `MonthlyCharges` vs. `TotalCharges` can show strong correlation (with bubble size representing tenure or number of services, and color indicating churn status to add insight). This could highlight patterns such as churned customers clustering in certain charge ranges.
+
+
+
+The dataset size (7k rows) is also suitable for **interactive visuals** using Plotly or Bokeh. You can create interactive scatter plots, bar charts, or pie charts where tooltips show customer details, without performance issues. Each chart can be properly annotated with titles, axis labels, legends, and even error bars (for example, adding error bars to a bar chart of average charges by churn status to show variability).
+
+### Feature Engineering Potential
+There are many opportunities to create new features from the existing data, which is a key part of the project. For instance, you could derive:
+
+* **Ratio or combination features:** E.g., average revenue per month for each customer (`TotalCharges` / `tenure`), which might be insightful (especially for those with zero tenure, handle carefully).
+* **Count of services:** Combine the multiple binary service columns into a single numeric feature representing how many services each customer has subscribed to (such as internet, phone, online security, streaming, etc.). Customers with very few or many add-on services might behave differently.
+* **Binning:** Create tenure buckets (e.g., 0–12 months, 13–24 months, etc.) to transform continuous tenure into a categorical feature representing customer loyalty length. Similarly, monthly charges could be binned into low/medium/high categories.
+* **Date/time transformations:** Although this dataset doesn’t have explicit dates, if it did (for example, a sign-up date), one could extract year, month or calculate how long ago the customer joined. In our case, tenure already serves as a time duration feature (in months).
+
+These engineered features can enrich the dataset and potentially reveal new patterns. The project asks, *“When is feature engineering nice-to-have vs must-have?”* With this dataset, you can reflect that feature engineering becomes **must-have** when original features are not predictive enough or when domain knowledge suggests new combinations (for example, if churn is heavily influenced by the combination of services a customer has, creating a feature for “has tech support AND online security” could be crucial). In contrast, it's **nice-to-have** if the model is already performing well, but in a complex dataset like this, engineered features often boost performance.
+
+### Feature Selection and PCA
+The Telco Churn dataset’s breadth of features (mostly categorical turned into multiple dummy variables) makes it feasible to apply **feature selection techniques** like Mutual Information to identify which attributes have the strongest relationship with the churn outcome. For example, you might find that contract type or tenure has high mutual information with churn (indicating they are important predictors) – performing this selection will fulfill that project component.
+
+Moreover, after encoding categorical variables into numeric form (one-hot encoding for multicategory fields and binary encoding for yes/no fields), you will end up with a higher-dimensional numeric feature space. This is a great chance to use **Principal Component Analysis (PCA)** to reduce dimensionality. Even though many original features are categorical, PCA can still be applied on the encoded numerical matrix to find principal components that capture the variance in customer attributes. You could then visualize the data in the space of the first two principal components to see if churned vs. non-churned customers form distinct clusters, or simply use PCA to compress features as part of a pipeline. The dataset is small enough that computing PCA is fast, and it will demonstrate the required dimensionality reduction step.
+
+---
+
+**In summary**, the Telco Customer Churn dataset from Kaggle meets all the criteria for the project:
+1.  It is a classification dataset with a manageable size [1].
+2.  It contains diverse features that require comprehensive cleaning and preprocessing (handling missing values, encoding categories, normalization).
+3.  It offers rich possibilities for EDA, visualization, and feature engineering.
+
+Using this dataset, you will be able to produce meaningful analyses and visualizations for parts 1 and 2, create and select new features for part 3, and it aligns well with the project’s objectives and constraints. The variety in the data ensures you can practice all the required techniques and produce insightful results, making it an excellent choice for the Data Analysis & Engineering Project.
+
+---
+
+### Sources
+*The description and properties of the Telco Customer Churn dataset are documented in Kaggle’s dataset overview and multiple analyses [1][2]. Notably, real-world data issues like missing values in the TotalCharges column (11 new customers with blank entries) have been observed and can be addressed in data cleaning [4][3]. These characteristics underscore the dataset’s suitability for the tasks at hand.*
+
+* **[1] [2] GitHub - Nas-virat/Telco-Customer-Churn:** Data Models project | The data has been chosen from Kaggle called ‘Telco Customer Churn’ which is the IBM Samples Data Sets. Each row represents a customer, each column contains the customer’s attributes described in the column Metadata. The ‘Churn’ column is the target to predict. [Link](https://github.com/Nas-virat/Telco-Customer-Churn)
+* **[3] [4] Telco Churn Prediction With Machine Learning | by Luís Fernando Torres | Medium:** [Link](https://medium.com/@luuisotorres/telco-churn-prediction-with-machine-learning-c5e51c0c976f)
