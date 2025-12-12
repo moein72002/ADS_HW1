@@ -1,0 +1,81 @@
+---
+alwaysApply: true
+---
+
+# Development Guideline for Assignment 2 (Regression & Classification)
+
+This document outlines the step-by-step development plan for **Assignment 2**, building upon the data analysis performed in HW1.
+
+## 1. Project Setup & Architecture
+*   **Notebook**: Create a new notebook `notebooks/ads_hw2.ipynb` for this assignment.
+*   **Data Source**: Use the **Telco Customer Churn** dataset (`data/telco_customer_churn.csv`).
+    *   *Recommendation*: You may either re-run the cleaning steps from `ads_hw1_final.ipynb` or save the cleaned/engineered DataFrame from HW1 to a file (e.g., `data/telco_cleaned.parquet`) and load it here to ensure consistency.
+*   **Environment**: Ensure all new dependencies (e.g., `xgboost`, `lightgbm`) are added to `requirements.txt` and installed via `uv pip sync`.
+*   **Self-contained notebook**: Do not import local Python modules inside `ads_hw2.ipynb`; inline any required helpers (loading/feature engineering) directly in the notebook.
+
+## 2. Task Breakdown
+
+### Part 1: Regression Methods
+**Goal**: Predict a continuous variable.
+*   **Target Variable**: Use **`TotalCharges`** (or `tenure` if preferred).
+*   **Models to Implement**:
+    1.  **Linear Regression** (Baseline)
+    2.  **Kernel Regression**: Implement and explain the "kernel trick".
+    3.  **Ridge Regression**: L2 regularization.
+    4.  **LASSO Regression**: L1 regularization.
+    5.  *(Optional)*: Polynomial Regression, SVR, or Decision Tree Regression.
+*   **Evaluation**:
+    *   Metrics: MSE, MAE, MAPE, $R^2$.
+    *   *Critical Step*: Justify the "best" metric for this specific problem (e.g., is outlier sensitivity important?).
+
+### Part 2: Binary Classification
+**Goal**: Predict customer churn.
+*   **Target Variable**: **`Churn`** (Yes/No).
+*   **Models to Implement**:
+    1.  **Logistic Regression**
+    2.  **SVM**: Compare **Linear SVM** vs. **Kernel SVM**.
+    3.  **KNN**: Tune $K$ (show elbow plot or grid search results).
+    4.  **Decision Trees**: Tune `max_depth` to prevent overfitting.
+    5.  **Random Forests**: Ensemble method.
+*   **Evaluation**:
+    *   Metrics: Accuracy, Precision, Recall, F1-Score, ROC/AUC, Confusion Matrix.
+    *   *Critical Step*: Discuss class imbalance (Churn is ~26%) and why Accuracy might be misleading.
+
+### Part 3: Multiclass Classification
+**Goal**: Predict a category with >2 classes.
+*   **Target Variable**: **`PaymentMethod`** (4 classes: Electronic check, Mailed check, Bank transfer, Credit card).
+*   **Models to Implement**:
+    1.  **Multiclass SVM**
+    2.  **Multiclass Logistic Regression**: Compare One-vs-Rest (OVR) vs. Multinomial.
+    3.  **Multiclass KNN**: Tune $K$.
+    4.  **Multiclass Decision Trees**
+    5.  **Boosting**: Implement **XGBoost**, **LightGBM**, or **CatBoost**.
+*   **Evaluation**:
+    *   Metrics: Accuracy, Precision/Recall (per class), F1-Score (Macro vs. Micro vs. Weighted).
+    *   *Discussion*: Explain how KNN/Trees handle multi-label tasks (conceptually).
+
+## 3. Implementation Best Practices
+*   **Modularity**: Define helper functions for training and evaluation to avoid repetitive code.
+    *   Example: `train_and_evaluate_model(model, X_train, y_train, X_test, y_test, task_type="binary")`
+*   **Visualizations**:
+    *   Use **Plotly** for interactive charts (e.g., ROC curves, Feature Importance).
+    *   Show **Confusion Matrices** for classification tasks.
+    *   Plot **Residuals** for regression.
+*   **Explanation**: Add markdown cells *before* code to explain the "plan" and *after* code to interpret results. Do not just dump numbers.
+
+## 4. Bonus Points Strategy
+*   **Interactive Comparison**: Create a dashboard-like summary (e.g., a DataFrame with all model results, highlighted best scores).
+*   **Error Analysis**: Inspect cases where the model failed (e.g., high probability churns who didn't churn).
+*   **Decision Boundaries**: Visualize boundaries for 2 features (e.g., using PCA reduced data) to show how Linear vs. Kernel models differ.
+*   **Cross-Validation**: Use `cross_val_score` or `GridSearchCV` to show result stability.
+
+## 5. Submission Checklist
+*   [ ] All models implemented and tuned.
+*   [ ] Metrics justified in markdown.
+*   [ ] "Kernel Trick" and regularization explained.
+*   [ ] Notebook runs top-to-bottom without errors.
+*   [ ] `requirements.txt` updated.
+*   [ ] Committed to GitHub.
+
+---
+**Note**: Always follow the "Very Important Rules" from `task_description_hw2.mdc` regarding timeouts, `uv` usage, and code quality.
