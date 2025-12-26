@@ -10,6 +10,7 @@
 - `notebooks/`: narrative analysis artifacts.
   - `ads_hw1_final.ipynb`: main notebook implementing cleaning, visualization, and feature engineering for HW1.
   - `ads_hw2.ipynb`: self-contained HW2 notebook (regression/classification) with inline data prep—no imports from local Python modules.
+  - `ads_hw3.ipynb`: HW3 notebook (Deep Learning: MLP, CNN, RNN, Transformers) designed for Kaggle/Colab execution.
 - `reports/`: optional exports (currently empty) for any rendered deliverables, screenshots, or summaries.
 
 ### Code Modules
