@@ -1,8 +1,6 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
-
-
 # Assignment 2
 
 In the first assignment, you practiced **EDA, Preprocessing, and Feature Engineering**. Now, in this homework, we will focus on **Regression and Classification Modeling** using the same dataset (or a new one if preferred).

@@ -1,8 +1,6 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
-
-
 # Data Analysis & Engineering Project
 
 ## 1. Exploratory Analysis and Data Cleaning

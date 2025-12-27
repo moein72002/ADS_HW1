@@ -1,7 +1,6 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
-
 # Development Guideline for Assignment 2 (Regression & Classification)
 
 This document outlines the step-by-step development plan for **Assignment 2**, building upon the data analysis performed in HW1.

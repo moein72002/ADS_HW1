@@ -1,7 +1,6 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
-
 # Suitable Kaggle Dataset for the Analysis Project
 
 For the given data analysis and engineering tasks, a highly suitable choice from Kaggle's classification datasets is the **Telco Customer Churn dataset** (an IBM sample dataset).
