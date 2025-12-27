@@ -3,79 +3,108 @@
 Based on requirements in `.cursor/rules/task_description_hw3.mdc` and aligned with `notebooks/ads_hw2_final.ipynb`.
 
 ## Datasets
-- **CNN:** Flowers-102 (Kaggle: `nunenuh/pytorch-challange-flower-dataset`) at `/kaggle/input/pytorch-challange-flower-dataset`
-- **RNN / Transformer:** Jena Climate (Kaggle: `mnassrib/jena-climate`) at `/kaggle/input/jena-climate`
+- **Note:** Reuse existing datasets when possible; only CNN requires image data.
+- **CNN:** Flowers-102 (Kaggle: `nunenuh/pytorch-challange-flower-dataset`) at `/kaggle/input/pytorch-challange-flower-dataset`.
+- **RNN / Transformer:** Jena Climate (Kaggle: `mnassrib/jena-climate`) at `/kaggle/input/jena-climate`.
 - **MLP:** Telco Customer Churn (Kaggle: `beatafaron/telco-customer-churn-realistic-customer-feedback`, file `telco_churn_with_all_feedback.csv`); use raw CSV in-notebook.
 
 ## Framework & Environment
-- **Framework:** PyTorch
-- **Runtime:** Kaggle notebook with P100 GPU
-- **Scope:** Systematic experiments and comparisons.
+- **Framework:** PyTorch (briefly explain why chosen).
+- **Runtime:** Kaggle notebook with P100 GPU.
+- **Scope:** Clarity-first experiments, avoid unnecessary heavy training.
 
 ## Notebook Outline (Single Notebook)
 
 1. **Intro & Setup**
-   - State framework choice (PyTorch) and reasoning.
+   - State framework choice and reasoning.
    - Describe datasets and tasks.
    - Set seeds, device (GPU), and utilities.
 
 2. **MLP Section (Tabular - Telco Churn)**
    - **Tasks:**
-     - Binary classification: `Churn` (Yes/No → 1/0)
-     - Regression: `TotalCharges` (numeric; impute median)
-   - **Preprocessing:** Median impute/Standardize (numeric), Mode impute/One-hot (categorical).
-   - **Experiments (Analyze effects):**
-     - **Optimization:** Optimizers (SGD vs Adam), LR scheduling, Batch size, Epochs.
-     - **Architecture:** Depth (layers), Width (neurons), Activations (ReLU/LeakyReLU), Init (Xavier/He), Batch Norm.
-     - **Regularization:** Dropout, L2 (Weight Decay).
-   - **Metrics:** Accuracy, F1, ROC-AUC (Classif); MAE, MSE, R2 (Reg).
-   - **Discussion:** Power of NNs, depth difficulty, Universal Approximation vs depth benefits.
+     - Binary classification: `Churn` (Yes/No -> 1/0).
+     - Regression: `TotalCharges` (numeric; impute median).
+   - **Preprocessing:** Median impute + standardize (numeric), mode impute + one-hot (categorical).
+   - **Show:** Training/validation performance, loss curves, final metrics.
+   - **Experiments (discuss effects with short comments):**
+     - **Training & Optimization:**
+       - Optimizers: SGD, SGD+momentum, Adam.
+       - Learning rate: too small / good / too large.
+       - Learning rate scheduling.
+       - Batch size effects.
+       - Early stopping.
+       - Number of epochs.
+     - **Architecture & Representation:**
+       - Depth (hidden layers).
+       - Width (neurons per layer).
+       - Activations: ReLU, LeakyReLU, Tanh, Sigmoid.
+       - Weight initialization: Xavier, He, random.
+       - Batch Normalization.
+     - **Regularization & Stability:**
+       - L1 / L2 weight regularization.
+       - Activity regularization.
+       - Dropout.
+       - Gradient clipping (optional).
+   - **Metrics:** Accuracy, F1, ROC-AUC (classification); MAE, MSE, R2 (regression).
+   - **Discussion:** Why NNs are powerful, why depth is harder to train, and (optional) depth benefits beyond width.
 
 3. **CNN Section (Images - Flowers-102)**
    - **Task:** Multi-class classification.
-   - **Model A (Custom):** Conv blocks → Pooling → FC.
-   - **Experiments:**
-     - Kernel size, Stride, Filter counts.
-     - Pooling types (Max vs Avg).
-     - Depth effects.
-   - **Model B (Transfer Learning):** ResNet18 or VGG19.
-     - Feature extraction (frozen features) vs Fine-tuning.
-   - **Data Augmentation:** Flips, rotations, crops, normalization. Analyze impact on overfitting.
-   - **Metrics:** Accuracy, Loss curves.
-   - **Discussion:** Parameter efficiency of CNNs vs MLPs, when MLPs might match CNNs.
+   - **Model A (Custom):** Conv layers -> pooling -> fully connected.
+   - **Show:** Training curves and performance metrics (accuracy, loss).
+   - **Experiments (comment on capacity, over/underfitting, training time, performance):**
+     - Kernel size (receptive field).
+     - Strides.
+     - Number of filters.
+     - Pooling type and pooling window size (max vs avg).
+     - Depth of the network.
+   - **Data Augmentation:** Random flips, rotations, crops, normalization and/or color jitter; analyze impact on overfitting/generalization.
+   - **Model B (Transfer Learning):** Choose one pretrained model (e.g., ResNet18, VGG19).
+     - Feature extraction or fine-tuning.
+     - Clearly state which layers are frozen (if any).
+     - Compare performance to custom CNN.
+   - **Discussion:** Why CNNs are more parameter-efficient than MLPs; when MLPs could match and why it is unrealistic in practice.
 
 4. **RNN Section (Time Series - Jena Climate)**
    - **Task:** Forecast `T (degC)` (next step or future window).
-   - **Preprocessing:** Sliding windows (e.g., input 24/72h -> predict next). Normalize.
-   - **Models:** Implement **Vanilla RNN**, **LSTM**, and **GRU**.
+   - **Preprocessing:** Sliding windows (e.g., input 24/72h -> predict next), normalize features.
+   - **Models (train all three):** Vanilla RNN, LSTM, GRU (use high-level `nn.*` modules).
    - **Experiments:**
      - Sequence length.
      - Hidden size.
-     - Stacked layers (One vs Multiple).
-     - Bidirectional vs Unidirectional.
-     - Dropout.
-   - **Metrics:** MAE, MSE, Loss curves.
-   - **Discussion:** LSTM/GRU vs Vanilla (gradients), Role of gates.
+     - One vs multiple recurrent layers.
+     - Bidirectional vs unidirectional.
+     - Dropout between recurrent layers.
+   - **Discussion:** Why LSTM/GRU outperform vanilla RNNs for long sequences; role of gates and vanishing gradients.
 
 5. **Transformer Section (Time Series - Jena Climate)**
-   - **Task:** Forecast `T (degC)` (same as RNN for comparison).
-   - **Model:** **Transformer Encoder** (Option 2) using `nn.TransformerEncoder` or similar.
-     - *Reasoning:* Allows direct performance comparison with RNN/LSTM on the same sequence task.
-   - **Comparison:** Compare performance (MSE/MAE, convergence speed) vs RNN/LSTM.
-   - **Discussion:** Advantages/Disadvantages, Scaling, Self-attention explanation, Positional encoding role.
+   - **Approach:** Use a Transformer encoder layer from PyTorch (`nn.TransformerEncoder`) (option 2).
+   - **Task:** Apply to the same forecasting task; compare vs RNN/LSTM.
+   - **Discussion (cover all points):**
+     - Advantages and disadvantages of Transformers.
+     - Why they scale well with data/model size.
+     - Why they need more compute.
+     - What self-attention is and what it solves.
+     - Why attention captures long-range dependencies better than RNNs.
+     - What multi-head attention is and why it helps.
+     - Role of positional encoding.
 
 6. **Research Report (Bonus)**
    - **Topic:** "Which Machine Learning Models Are Actually Used in Industry?"
-   - **Content:**
-     - Current industry favorites (Surveys/Reports).
-     - Future predictions (5-10 years).
-     - Shift in domains (Classical vs Deep Learning/LLM).
-   - **Format:** Short text section in notebook (1-2 pages equivalent).
+   - **Sources:** Use credible reports/surveys/industry blogs (include citations/links).
+   - **Part 1:** Which model families are most widely used today.
+   - **Part 2:** 2-3 paragraph prediction for 5-10 years.
+     - Discuss classical models vs deep learning/LLMs and domain shifts.
+   - **Format:** Short written report in notebook (1-3 pages equivalent).
 
 7. **Wrap-up**
    - Summary of key findings per section.
-   - (Optional) Error analysis.
+   - Optional error analysis.
+   - Optional bonus items: interactive visuals, feature map visualizations, architecture trade-off discussion.
 
-## Deliverables
-- One clean `.ipynb` file.
-- `README.md` update (optional bonus).
+## Submission Notes
+- Use the same GitHub repo as HW1/HW2; include the final `.ipynb`.
+- Provide GitHub link and Colab link (if used).
+- Optional: update `README.md` with experiment summary.
+- Be ready for a short in-person review.
+- Collaboration policy: individual work only.
